@@ -1,5 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+include_once 'db-connect.php';
+
+if(isset($_GET['user'])){
+  $user = $_GET['user'];
+  $stmt = $conn->prepare("SELECT usr_nombre, usr_primerapellido, usr_segundoapellido, usr_genero FROM usuarios WHERE usr_qr = ?;");
+	$stmt->bind_param("s", $user);
+	$stmt->execute();
+	$stmt->bind_result($usr_nombre,$usr_primerapellido,$usr_segundoapellido,$usr_genero);
+}
+?>
 
 <head>
   <meta charset="UTF-8">
@@ -32,7 +43,7 @@
       </div>
     </div>
     <div class="subtitle">
-      <p>Estimado <font color="#E30613"> XXXX <?php echo $username; ?></font><br> agende una <font color="#E30613">Reunión</font> y <br>le explicamos en detalle:</p>
+      <p>Estimado <font color="#E30613"> <?php echo $usr_nombre; ?></font><br> agende una <font color="#E30613">Reunión</font> y <br>le explicamos en detalle:</p>
     </div>
     <div class="calendar">
 
