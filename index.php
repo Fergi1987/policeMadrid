@@ -5,8 +5,12 @@ include_once 'db-connect.php';
 
 if(isset($_GET['user'])){
   $user = $_GET['user'];
-  $res = $conn->query("SELECT * FROM ld_users WHERE usr_qr='".$user."';");
-  $arr = $res->fetch_assoc();
+  $query = $conn->query("SELECT * FROM ld_users WHERE usr_qr='".$user."';");
+  if($query->num_rows==1){
+    $res = $query->fetch_assoc();
+    $query = $conn->query("UPDATE ld_users SET usr_visitado=1 WHERE usr_qr='".$user."';");
+  }
+  
 }
 ?>
 
@@ -41,7 +45,7 @@ if(isset($_GET['user'])){
       </div>
     </div>
     <div class="subtitle">
-      <p>Estimad<?php if($arr['usr_genero']=='H'){echo "o";}else{echo "a";} ?> <font color="#E30613"> <?php echo $arr['usr_nombre'].' '.$arr['usr_primerapellido']  ?></font><br> agende una <font color="#E30613">Reunión</font> y <br>le explicamos en detalle:</p>
+      <p>Estimad<?php if($res['usr_genero']=='H'){echo "o";}else{echo "a";} ?> <font color="#E30613"> <?php echo $res['usr_nombre'].' '.$res['usr_primerapellido']  ?></font><br> agende una <font color="#E30613">Reunión</font> y <br>le explicamos en detalle:</p>
     </div>
     <div class="calendar">
 
