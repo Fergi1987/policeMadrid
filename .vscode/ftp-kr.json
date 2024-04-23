@@ -1,0 +1,16 @@
+{
+    "host": "ftp.wolfavionic.com",
+    "username": "u665669770.landing",
+    "password": "PW5kZ729jLhI4junUu0wKhYJaGSbPH",
+    "remotePath": "",
+    "protocol": "ftp",
+    "port": 21,
+    "fileNameEncoding": "utf8",
+    "autoUpload": true,
+    "autoDelete": false,
+    "autoDownload": false,
+    "ignore": [
+        ".git",
+        "/.vscode"
+    ]
+}

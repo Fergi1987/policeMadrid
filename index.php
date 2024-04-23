@@ -5,10 +5,8 @@ include_once 'db-connect.php';
 
 if(isset($_GET['user'])){
   $user = $_GET['user'];
-  $stmt = $conn->prepare("SELECT usr_nombre, usr_primerapellido, usr_segundoapellido, usr_genero FROM usuarios WHERE usr_qr = ?;");
-	$stmt->bind_param("s", $user);
-	$stmt->execute();
-	$stmt->bind_result($usr_nombre,$usr_primerapellido,$usr_segundoapellido,$usr_genero);
+  $res = $conn->query("SELECT * FROM ld_users WHERE usr_qr='".$user."';");
+  $arr = $res->fetch_assoc();
 }
 ?>
 
@@ -43,7 +41,7 @@ if(isset($_GET['user'])){
       </div>
     </div>
     <div class="subtitle">
-      <p>Estimado <font color="#E30613"> <?php echo $usr_nombre; ?></font><br> agende una <font color="#E30613">Reunión</font> y <br>le explicamos en detalle:</p>
+      <p>Estimad<?php if($arr['usr_genero']=='H'){echo "o";}else{echo "a";} ?> <font color="#E30613"> <?php echo $arr['usr_nombre'].' '.$arr['usr_primerapellido']  ?></font><br> agende una <font color="#E30613">Reunión</font> y <br>le explicamos en detalle:</p>
     </div>
     <div class="calendar">
 
